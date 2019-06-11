@@ -1,19 +1,15 @@
 #!/bin/bash
 echo
-echo -----------------------------------------------------------------
-echo This program helps prepare a new OSX computer for data engineers.
-echo -----------------------------------------------------------------
+echo ----------------------------------------------------------------
+echo This program helps prepare an OSX computer for data engineers.
+echo
+echo -e 'For more detail, see https://fullscreenmedia.atlassian.net/wiki'
+echo -e '\t /spaces/DE/pages/42735377/OSX+New+Computer+Setup'
+echo ----------------------------------------------------------------
 echo
 
-# Originally, I made this to be used on the OSX.
-# Then I adapted it to work in a docker container.
-# Then we decided to just run is on the OSX again; it has to be reworked,
-# but it'll probably be easier that way.
-
-
-
 echo First, sign into the App Store with your Apple ID and Password.
-echo Make an Apple account if you need to.
+echo Make an Apple account if you need to, using your Fullscreen email address.
 finished="no"
 until [ $finished = Y ]; do
 	echo Type Y when you\'re signed into your account.
@@ -21,7 +17,7 @@ until [ $finished = Y ]; do
 	done
 echo
 
-echo Now download the Xcode App.
+echo Now download the Xcode app from the App Store.
 finished="no"
 until [ $finished = Y ]; do
 	echo Type Y when Xcode starts downloading.
@@ -29,7 +25,7 @@ until [ $finished = Y ]; do
 	done
 echo
 
-echo The download might take a while, so for now, let us move on.
+echo The download might take a while, so for now, let\'s move on.
 echo Trying to make /etc/default...
 mkdir /etc/default
 echo Trying to make /etc/default/ec2-userdata...
@@ -41,11 +37,13 @@ echo
 
 echo Installing homebrew...
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+echo Tapping the Fullscreen brew...
+brew tap fullscreen/tap
 echo
 
 echo While we wait for Xcode, set up your printer.
 echo Click the Fullscreen logo at the bottom of the screen.
-echo Your closest printer is probably Slayer.
+echo Your closest printer is probably \'Slayer.\'
 finished="no"
 until [ $finished = Y ]; do
 	echo Type Y when your printer is set up.
@@ -53,7 +51,7 @@ until [ $finished = Y ]; do
 	done
 echo
 
-echo Set up a Slack account if you haven\'t already.
+echo If you haven\'t already, set up a Slack account for your Fullscreen email.
 finished="no"
 until [ $finished = Y ]; do
 	echo Type Y when you have your Slack account.
@@ -61,7 +59,8 @@ until [ $finished = Y ]; do
 	done
 echo
 
-echo Now contact IT with the Slack FSIT channel or email helpdesk@fullscreen.com.
+echo Now contact IT by emailing helpdesk@fullscreen.com,
+echo -e '\t or open Slack and use the #fsit channel.'
 echo Ask IT to send an invitation to Lastpass Enterprise and license for JetBrains.
 echo \(Specifically, you need data grip and pycharm from JetBrains.\)
 finished="no"
@@ -71,8 +70,8 @@ until [ $finished = Y ]; do
 	done
 echo
 
-echo Install the Lastpass App \(and browser plugin\)
-echo and JetBrain App \(and install datagrip and pycharm\).
+echo Install the Lastpass app \(and browser plugin\)
+echo and JetBrain app \(and install datagrip and pycharm\).
 finished="no"
 until [ $finished = Y ]; do
 	echo Type Y when you have those apps.
@@ -83,23 +82,19 @@ echo
 echo To set up an SSH key-pair, enter your Fullscreen email:
 read email
 echo
-echo When asked for a file location, just hit Enter.
-echo When asked for passphrase, just hit Enter.
+echo When asked for a file location, just hit Enter/Return.
+echo When asked for passphrase, just hit Enter/Return.
 echo
 ssh-keygen -t rsa -b 4096 -C $email
 echo
 
-echo Find your key with the following input:
-echo cat /Users/\(yourfirsnametinitalyourlastname\)/.ssh/id_rsa.pub
-echo \(Mine was first initial, last name, then LA, so check your Users folder.\)
+echo Copy this key to your clipboard:
+echo
+cat ~/.ssh/id_rsa.pub
 finished="no"
 until [ $finished = Y ]; do
-	echo Input \'cat /Users/\(yourfirsnametinitalyourlastname\)/.ssh/id_rsa.pub\':
-	read command
 	echo
-	$command
-	echo
-	echo Type Y when you have copy-pasted your key. Type anything else to try again.
+	echo Type Y when you have copied your key.
 	read finished
 	done
 echo
@@ -107,7 +102,7 @@ echo
 echo Make a GitHub account for your Fullscreen email address.
 finished="no"
 until [ $finished = Y ]; do
-	echo Type Y when you have logged into that account.
+	echo Type Y when you have logged into that GitHub account.
 	read finished
 	done
 echo
@@ -129,10 +124,10 @@ until [ $finished = Y ]; do
 	done
 echo
 
-echo Download the Authy App on your phone. \(Use wifi FS Guest. Ask IT for password.\)
+echo Download the Authy app on your phone. \(Use wifi FS Guest. Ask IT for password.\)
 finished="no"
 until [ $finished = Y ]; do
-	echo Type Y when you have the Authy App.
+	echo Type Y when you have the Authy app.
 	read finished
 	done
 echo
@@ -153,12 +148,12 @@ brew install postgresql
 sudo git lfs install --system
 echo
 
-echo 'Ask Alex for devops on GitHub to let you install aws-rotate-key and aws-ssh.'
-finished="no"
-until [ $finished = Y ]; do
-	echo Type Y when you can install those packages.
-	read finished
-	done
+#echo 'Ask Alex for devops on GitHub to let you install aws-rotate-key and aws-ssh.'
+#finished="no"
+#until [ $finished = Y ]; do
+#	echo Type Y when you can install those packages.
+#	read finished
+#	done
 brew install aws-rotate-key
 brew install aws-ssh
 echo
@@ -168,6 +163,10 @@ until [ $finished = Y ]; do
 	echo Type Y when Xcode has finished installing.
 	read finished
 	done
+echo
+
+echo Installing command-line-tools...
+xcode-select --install
 echo
 
 #echo Clean previous Python installs? Y/N
@@ -235,7 +234,7 @@ until [ $finished = Y ]; do
 	done
 echo
 echo Open Sourcetree and click the gear in the top right. Select Accounts.
-echo Create an account connected to your GitHub username and fullscreen email.
+echo Create an account connected to your GitHub username and Fullscreen email.
 echo Use HTTPS, not SSH, and connect account.
 echo Click the Commit tab and select \'push to remove,\' \'fixed-width font,\'
 echo -e "\t and 'display column guide at character 72.'"
@@ -247,7 +246,7 @@ until [ $finished = Y ]; do
 	done
 echo
 
-echo Close Sourcetree\'s options window and look at Sourcetree proper.
+echo Close Sourcetree\'s Accounts window and look at Sourcetree proper.
 echo You should now have a \'Projects\' entity. Double-click it.
 echo Right-click the toolbar along the top and select \'Customize Toolbar.\'
 echo Drag the \'git-flow\' icon to the toolbar.
@@ -258,7 +257,7 @@ until [ $finished = Y ]; do
 	done
 echo
 
-echo Let\'s install Luigi. Ask Alex to let you clone from the Fullscreen GitHub.
+echo Now let\'s install Luigi. Ask Alex to add you to the Fullscreen GitHub.
 finished="no"
 until [ $finished = Y ]; do
 	echo Type Y when you can clone Luigi from the Fullscreen GitHub.
@@ -270,16 +269,14 @@ echo Cloning Luigi...
 git clone https://github.com/Fullscreen/luigi ~/Projects/luigi
 echo
 
-echo Install this version of Python if not installed already:
-CFLAGS="-I$(xcrun --show-sdk-path)/usr/include" pyenv install 2.7.15
-echo
 echo Destroying old tank if it exists...
 rmvirtualenv tank
-echo
 pyenv shell 2.7.15
+echo Making new tank...
+echo 
 mkvirtualenv -a ~/Projects/luigi/codedeploy/tank -r ~/Projects/luigi/codedeploy/tank/requirements.txt tank
 echo
-echo We should now be working in the Tank environment
+echo We should now be working in the Tank environment.
 workon tank
 pyenv local 2.7.15
 sudo mkdir /data
@@ -290,14 +287,13 @@ sudo mkdir /var/log/luigi
 sudo chown $(id -un):$(id -gn) /var/log/luigi
 sudo cp -a ../config/* /etc/luigi/
 add2virtualenv ~/Projects/luigi/codedeploy/tank
-
 echo Installing credstash...
 pip install credstash
-
 deactivate
+echo Leaving Tank
 echo
 
-echo Contact IT to set up an Amazon Web-Service account.
+echo Contact devops to set up an Amazon Web-Service account. \(Scott Stout helped me.\)
 echo This will require LastPass and the Authy app.
 finished="no"
 until [ $finished = Y ]; do
