@@ -1,7 +1,7 @@
 #!/bin/bash
 echo
 echo -----------------------------------------------------------------
-echo HELLO This program helps prepare a new OSX computer for data engineers.
+echo This program helps prepare a new OSX computer for data engineers.
 echo -----------------------------------------------------------------
 echo
 
