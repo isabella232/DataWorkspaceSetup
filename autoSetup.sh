@@ -188,15 +188,15 @@ echo I\'m creating/opening your bash file. Add these lines to the END:
 touch .bash_profile
 open ~/.bash_profile
 echo
-echo 'eval "$(pyenv init -)"'
-echo 'if command -v pyenv 1>/dev/null 2>&1'
-echo then
-echo export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV=\"true\"
-echo export WORKON_HOME=\$HOME/.virtualenvs
-echo export PROJECT_HOME=\$HOME/Projects
-echo 'eval "$(pyenv init -)"'
-echo pyenv virtualenvwrapper
-echo fi
+echo -e 'eval "$(pyenv init -)"'
+echo -e 'if command -v pyenv 1>/dev/null 2>&1'
+echo -e 'then'
+echo -e '\t export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"'
+echo -e '\t export WORKON_HOME=$HOME/.virtualenvs'
+echo -e '\t export PROJECT_HOME=$HOME/Projects'
+echo -e '\t eval "$(pyenv init -)"'
+echo -e '\t pyenv virtualenvwrapper'
+echo -e 'fi'
 echo
 
 finished="no"
@@ -236,7 +236,7 @@ until [ $finished = Y ]; do
 	done
 echo
 
-echo Let us install Luigi. Ask Alex to let you clone from the Fullscreen GitHub.
+echo Let\'s install Luigi. Ask Alex to let you clone from the Fullscreen GitHub.
 finished="no"
 until [ $finished = Y ]; do
 	echo Type Y when you can clone Luigi from the Fullscreen GitHub.
