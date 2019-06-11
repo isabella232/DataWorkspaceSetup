@@ -170,6 +170,25 @@ until [ $finished = Y ]; do
 	done
 echo
 
+#echo Clean previous Python installs? Y/N
+#read answer
+#until [ $answer = "N" ]; do
+#	if [ $answer = "Y" ]; then
+#		python -m pip uninstall virtualenvwrapper
+#		python -m pip uninstall virtualenv-clone
+#		python -m pip uninstall virtualenv
+#		brew uninstall python@2
+#		brew uninstall awscli
+#		brew uninstall --force python
+#		rm -rf ~/.virtualenvs*
+#		answer="N"
+#	else
+#		echo I\'m sorry, what was that?
+#		read answer
+#	fi
+#done
+#echo
+
 echo Installing Python...
 git clone git://github.com/yyuu/pyenv.git .pyenv
 git clone https://github.com/yyuu/pyenv-virtualenv.git .pyenv/plugins/pyenv-virtualenv
@@ -184,10 +203,11 @@ echo Installing awscli...
 brew install awscli
 echo
 
-echo I\'m creating/opening your bash file. Add these lines to the END:
+echo I\'m creating/opening your bash profile. Add these lines to the end:
 touch .bash_profile
 open ~/.bash_profile
 echo
+echo -----------------------------------------------------------
 echo -e 'eval "$(pyenv init -)"'
 echo -e 'if command -v pyenv 1>/dev/null 2>&1'
 echo -e 'then'
@@ -197,6 +217,7 @@ echo -e '\t export PROJECT_HOME=$HOME/Projects'
 echo -e '\t eval "$(pyenv init -)"'
 echo -e '\t pyenv virtualenvwrapper'
 echo -e 'fi'
+echo -----------------------------------------------------------
 echo
 
 finished="no"
@@ -216,7 +237,8 @@ echo
 echo Open Sourcetree and click the gear in the top right. Select Accounts.
 echo Create an account connected to your GitHub username and fullscreen email.
 echo Use HTTPS, not SSH, and connect account.
-echo Click the Commit tab and select \'push to remove,\' \'fixed-width font,\' and \'display column guide at character 72.\'
+echo Click the Commit tab and select \'push to remove,\' \'fixed-width font,\'
+echo -e "\t and 'display column guide at character 72.'"
 echo Finally, click the General tab and select \'Projects\' as your project folder.
 finished="no"
 until [ $finished = Y ]; do
@@ -256,3 +278,34 @@ rmvirtualenv tank
 echo
 pyenv shell 2.7.15
 mkvirtualenv -a ~/Projects/luigi/codedeploy/tank -r ~/Projects/luigi/codedeploy/tank/requirements.txt tank
+echo
+echo We should now be working in the Tank environment
+workon tank
+pyenv local 2.7.15
+sudo mkdir /data
+sudo chown $(id -un):$(id -gn) /data
+sudo mkdir /etc/luigi
+sudo chown $(id -un):$(id -gn) /etc/luigi
+sudo mkdir /var/log/luigi
+sudo chown $(id -un):$(id -gn) /var/log/luigi
+sudo cp -a ../config/* /etc/luigi/
+add2virtualenv ~/Projects/luigi/codedeploy/tank
+
+echo Installing credstash...
+pip install credstash
+
+deactivate
+echo
+
+echo Contact IT to set up an Amazon Web-Service account.
+echo This will require LastPass and the Authy app.
+finished="no"
+until [ $finished = Y ]; do
+	echo Type Y when you\'re logged onto the AWS console.
+	read finished
+	done
+echo
+echo ----------------------------------
+echo This OSX computer is fully set up.
+echo ----------------------------------
+echo
