@@ -170,25 +170,6 @@ until [ $finished = Y ]; do
 	done
 echo
 
-echo Clean previous Python installs? Y/N
-read answer
-until [ $answer = "N" ]; do
-	if [ $answer = "Y" ]; then
-		python -m pip uninstall virtualenvwrapper
-		python -m pip uninstall virtualenv-clone
-		python -m pip uninstall virtualenv
-		brew uninstall python@2
-		brew uninstall awscli
-		brew uninstall --force python
-		rm -rf ~/.virtualenvs*
-		answer="N"
-	else
-		echo I\'m sorry, what was that?
-		read answer
-	fi
-done
-echo
-
 echo Installing Python...
 git clone git://github.com/yyuu/pyenv.git .pyenv
 git clone https://github.com/yyuu/pyenv-virtualenv.git .pyenv/plugins/pyenv-virtualenv
