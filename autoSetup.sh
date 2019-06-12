@@ -119,7 +119,7 @@ echo
 echo On GitHub, navigate to Settings \> SSH and GPG keys. Click \"New SSH key.\"
 finished="no"
 until [ $finished = Y ]; do
-	echo Type Y when you have added the SSH key we generated.
+	echo Type Y when you have added the SSH key you copied.
 	read finished
 	done
 echo
@@ -206,7 +206,7 @@ echo I\'m creating/opening your bash profile. Add these lines to the end:
 touch .bash_profile
 open ~/.bash_profile
 echo
-echo -----------------------------------------------------------
+echo ------------------------------------------------------------
 echo -e 'eval "$(pyenv init -)"'
 echo -e 'if command -v pyenv 1>/dev/null 2>&1'
 echo -e 'then'
@@ -216,7 +216,7 @@ echo -e '\t export PROJECT_HOME=$HOME/Projects'
 echo -e '\t eval "$(pyenv init -)"'
 echo -e '\t pyenv virtualenvwrapper'
 echo -e 'fi'
-echo -----------------------------------------------------------
+echo ------------------------------------------------------------
 echo
 
 finished="no"
@@ -234,8 +234,7 @@ until [ $finished = Y ]; do
 	done
 echo
 echo Open Sourcetree and click the gear in the top right. Select Accounts.
-echo Create an account connected to your GitHub username and Fullscreen email.
-echo Use HTTPS, not SSH, and connect account.
+echo Create an account. Use HTTPS, not SSH, and connect it to your new GitHub.
 echo Click the Commit tab and select \'push to remove,\' \'fixed-width font,\'
 echo -e "\t and 'display column guide at character 72.'"
 echo Finally, click the General tab and select \'Projects\' as your project folder.
@@ -246,7 +245,7 @@ until [ $finished = Y ]; do
 	done
 echo
 
-echo Close Sourcetree\'s Accounts window and look at Sourcetree proper.
+echo Close Sourcetree\'s Settings window and look at Sourcetree proper.
 echo You should now have a \'Projects\' entity. Double-click it.
 echo Right-click the toolbar along the top and select \'Customize Toolbar.\'
 echo Drag the \'git-flow\' icon to the toolbar.
@@ -273,7 +272,7 @@ echo Destroying old tank if it exists...
 rmvirtualenv tank
 pyenv shell 2.7.15
 echo Making new tank...
-echo 
+echo
 mkvirtualenv -a ~/Projects/luigi/codedeploy/tank -r ~/Projects/luigi/codedeploy/tank/requirements.txt tank
 echo
 echo We should now be working in the Tank environment.
@@ -298,6 +297,13 @@ echo This will require LastPass and the Authy app.
 finished="no"
 until [ $finished = Y ]; do
 	echo Type Y when you\'re logged onto the AWS console.
+	read finished
+	done
+echo
+echo Download and install Docker for Mac \(Stable version\).
+finished="no"
+until [ $finished = Y ]; do
+	echo Type Y when Docker is installed.
 	read finished
 	done
 echo
